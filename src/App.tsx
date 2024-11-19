@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import axios from "axios";
+import { City } from "./@types/city";
+import Loading from "./components/Loading";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState<City | null>(null);
+  const keyAPI = import.meta.env.VITE_API_KEY;
+
+  const getData = async () => {
+    try {
+      const response =
+        await axios.get<City>(`https://api.weatherapi.com/v1/current.json?key=${keyAPI}&q=Paris&aqi=no
+`);
+
+      console.log(response.data);
+
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main className="container container--global">
+      <h1 className="header">The Weather App</h1>
+
+      <div className="container container--card">
+        <form className="container form--card">
+          <label>
+            <input
+              type="search"
+              id="search-city"
+              placeholder="Enter a new city"
+            />
+          </label>
+          <button>Find</button>
+        </form>
+        {data ? (
+          <>
+            <h2>{data.location.name}</h2>
+            <img src={data.current.condition.icon} alt="" />
+            <p>{data.current.temp_c}°C</p>
+            <p>Feels Like: {data.current.feelslike_c}°C</p>
+            <p>{data.location.localtime}</p>
+            <p>{data?.current.condition.text}</p>
+            <p>{data?.current.cloud}%</p>
+          </>
+        ) : (
+          <Loading />
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </main>
+  );
 }
 
-export default App
+export default App;
