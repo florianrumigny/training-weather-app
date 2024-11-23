@@ -6,16 +6,13 @@ import Loading from "./components/Loading";
 import { City, SearchCity } from "./@types/city";
 
 function App() {
-  const [data, setData] = useState<CurrentWeather | null>(null);
+  const [dataWeather, setDataWeather] = useState<CurrentWeather[]>([]);
   const [city, setCity] = useState<string>("");
   const [cityLongLat, setCityLongLat] = useState<string>("");
   const [searchData, setSearchData] = useState<SearchCity[]>([]);
   const keyAPI = import.meta.env.VITE_API_KEY;
 
   // TODO : find a solution to display the name with the country but just take the name for the API
-  // TODO : Put the submit function in a use effect ? Doesn't work a second time
-
-  // select city by id, not name ?
 
   const searchByCity = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -23,7 +20,7 @@ function App() {
     console.log(city);
 
     try {
-      if (e.target.value.length > 2) {
+      if (e.target.value.length >= 2) {
         const response = await axios.get(
           `https://api.weatherapi.com/v1/search.json?key=${keyAPI}&q=${city}`
         );
@@ -41,11 +38,16 @@ function App() {
           console.log(filteredCities);
           setSearchData(filteredCities);
         }
-        return "no cities";
+        return;
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleClick = (city: string, lat: number, lon: number) => {
+    setCity(city);
+    setCityLongLat(`${lat},${lon}`);
   };
 
   const getData = async (e: { preventDefault: () => void }) => {
@@ -57,7 +59,9 @@ function App() {
 
       console.log(response.data);
 
-      setData(response.data);
+      const newData = [...dataWeather, response.data];
+
+      setDataWeather(newData);
       setCity("");
       setSearchData([]);
     } catch (error) {
@@ -83,10 +87,9 @@ function App() {
               {searchData.map((data) => (
                 <li
                   key={data.id}
-                  onClick={() => {
-                    setCity(data.city);
-                    setCityLongLat(`${data.lat},${data.lon}`);
-                  }}
+                  onClick={() =>
+                    handleClick(data.displayName, data.lat, data.lon)
+                  }
                 >
                   {data.displayName}
                 </li>
@@ -95,18 +98,20 @@ function App() {
           </label>
           <button>Find</button>
         </form>
-        {data ? (
-          <>
-            <h2>
-              {data.location.name}, {data.location.country}
-            </h2>
-            <img src={data.current.condition.icon} alt="" />
-            <p>Temp: {data.current.temp_c}°C</p>
-            <p>Feels Like: {data.current.feelslike_c}°C</p>
-            <p>{data.location.localtime}</p>
-            <p>{data?.current.condition.text}</p>
-            <p>{data?.current.cloud}% cloud</p>
-          </>
+        {dataWeather.length != 0 ? (
+          dataWeather.map((city) => (
+            <>
+              <h2>
+                {city.location.name}, {city.location.country}
+              </h2>
+              <img src={city.current.condition.icon} alt="" />
+              <p>Temp: {city.current.temp_c}°C</p>
+              <p>Feels Like: {city.current.feelslike_c}°C</p>
+              <p>{city.location.localtime}</p>
+              <p>{city?.current.condition.text}</p>
+              <p>{city?.current.cloud}% cloud</p>
+            </>
+          ))
         ) : (
           <Loading />
         )}
