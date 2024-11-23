@@ -28,14 +28,15 @@ pnpm install vite
 
   - [ ] one page component layout
 
-    - [ ] create the global layout
-    - [ ] create a search bar to search city
-    - [ ] create a card for a city with temp, image etc. (and define the data we want)
+    - [x] create the global layout
+    - [x] create a search bar to search city
+    - [x] create a card for a city with temp, image etc. (and define the data we want)
+    - [ ] Put a dark mode on the card with the data.isDay
     - [ ] do a function for the search bar to display real name in real time ?
     - <https://app.swaggerhub.com/apis-docs/WeatherAPI.com/WeatherAPI/1.0.2#/APIs/search-autocomplete-weather> : API gives us an endpoint to autocomplete directly / with onChange of react maybe ?
 
   - [ ] Structure in multiple components if necessary
-  - [ ] Create a generic type for the data (data: city)
+  - [x] Create a generic type for the data (data: city)
   - [ ] Install Zustand and create store to manage props
 
 ### Dynamic components

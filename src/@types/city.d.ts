@@ -1,22 +1,17 @@
 export type City = {
-  location: Location;
-  current: Current;
-};
-
-type Location = {
+  country: string;
+  id: number;
   name: string;
-  localtime: string;
+  region: string;
+  url: string;
+  lat: number;
+  lon: number;
 };
 
-type Current = {
-  temp_c: number;
-  is_day: number; // boolean
-  cloud: number;
-  feelslike_c: number;
-  condition: CurrentConditions;
-};
-
-type CurrentConditions = {
-  text: string;
-  icon: string;
+type SearchCity = {
+  id: number;
+  displayName: string;
+  city: string;
+  lat: number;
+  lon: number;
 };

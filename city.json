@@ -1,0 +1,47 @@
+[
+  {
+    "id": 803267,
+    "name": "Paris",
+    "region": "Ile-de-France",
+    "country": "France",
+    "lat": 48.87,
+    "lon": 2.33,
+    "url": "paris-ile-de-france-france"
+  },
+  {
+    "id": 2891223,
+    "name": "Pariaman",
+    "region": "West Sumatra",
+    "country": "Indonesia",
+    "lat": -0.62,
+    "lon": 100.12,
+    "url": "pariaman-west-sumatra-indonesia"
+  },
+  {
+    "id": 283622,
+    "name": "Parintins",
+    "region": "Amazonas",
+    "country": "Brazil",
+    "lat": -2.6,
+    "lon": -56.73,
+    "url": "parintins-amazonas-brazil"
+  },
+  {
+    "id": 1678667,
+    "name": "Parit Buntar",
+    "region": "Perak",
+    "country": "Malaysia",
+    "lat": 5.12,
+    "lon": 100.5,
+    "url": "parit-buntar-perak-malaysia"
+  },
+  {
+    "id": 2657545,
+    "name": "Paris",
+    "region": "Texas",
+    "country": "United States of America",
+    "lat": 33.66,
+    "lon": -95.56,
+    "url": "paris-texas-united-states-of-america"
+  }
+]
