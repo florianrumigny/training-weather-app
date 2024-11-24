@@ -12,15 +12,18 @@ function App() {
   const [searchData, setSearchData] = useState<SearchCity[]>([]);
   const keyAPI = import.meta.env.VITE_API_KEY;
 
-  // TODO : find a solution to display the name with the country but just take the name for the API
-
   const searchByCity = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setCity(e.target.value);
     console.log(city);
 
+    if (e.target.value === "") {
+      setSearchData([]);
+      return;
+    }
+
     try {
-      if (e.target.value.length >= 2) {
+      if (e.target.value.length >= 1) {
         const response = await axios.get(
           `https://api.weatherapi.com/v1/search.json?key=${keyAPI}&q=${city}`
         );
@@ -48,6 +51,7 @@ function App() {
   const handleClick = (city: string, lat: number, lon: number) => {
     setCity(city);
     setCityLongLat(`${lat},${lon}`);
+    setSearchData([]);
   };
 
   const getData = async (e: { preventDefault: () => void }) => {
@@ -64,6 +68,7 @@ function App() {
       setDataWeather(newData);
       setCity("");
       setSearchData([]);
+      setCityLongLat("");
     } catch (error) {
       console.log(error);
     }
@@ -75,29 +80,35 @@ function App() {
 
       <div className="container container--card">
         <form className="container form--card" onSubmit={getData}>
-          <label>
+          <label className="label--card">
             <input
+              className="input--card"
               type="search"
               id="search-city"
               placeholder="Enter a new city"
               value={city}
               onChange={searchByCity}
+              autoComplete="off"
+              inputMode="search"
             />
-            <ul>
-              {searchData.map((data) => (
-                <li
-                  key={data.id}
-                  onClick={() =>
-                    handleClick(data.displayName, data.lat, data.lon)
-                  }
-                >
-                  {data.displayName}
-                </li>
-              ))}
-            </ul>
           </label>
-          <button>Find</button>
+          <button className="btn--card">Find</button>
         </form>
+        {searchData.length > 0 && (
+          <ul className="container--autocomplet">
+            {searchData.map((data) => (
+              <li
+                className="link--autocomplet"
+                key={data.id}
+                onClick={() =>
+                  handleClick(data.displayName, data.lat, data.lon)
+                }
+              >
+                {data.displayName}
+              </li>
+            ))}
+          </ul>
+        )}
         {dataWeather.length != 0 ? (
           dataWeather.map((city) => (
             <>

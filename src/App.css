@@ -1,0 +1,84 @@
+.container--global {
+  max-width: 100vw;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #e7f5fb;
+
+  .header {
+    margin-bottom: 1rem;
+  }
+}
+
+.container--card {
+  max-width: 600px;
+  width: 100%;
+  background-color: #dbf0f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  position: relative;
+
+  .form--card {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .label--card {
+    flex: 7;
+  }
+
+  .input--card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  .btn--card {
+    flex: 3;
+    padding: 0.5rem;
+    border: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .btn--card:hover {
+    background-color: #ccc;
+  }
+
+  .container--autocomplet {
+    background-color: #fff;
+    margin-top: 0.2rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: absolute;
+    left: 23px;
+    top: 65px;
+    max-width: 370px;
+    width: 100%;
+  }
+
+  .link--autocomplet {
+    cursor: pointer;
+    list-style: none;
+    font-size: 1rem;
+  }
+
+  .link--autocomplet:hover {
+    background-color: #e5e5e5;
+  }
+}

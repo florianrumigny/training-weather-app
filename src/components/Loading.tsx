@@ -1,7 +1,7 @@
 function Loading() {
   return (
     <div>
-      <p>Loading...</p>
+      <p>No city selected.</p>
     </div>
   );
 }
